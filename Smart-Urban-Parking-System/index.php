@@ -1,0 +1,77 @@
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/bootstrap.php';
+
+$router = new Router();
+
+
+$router->get('/', fn () => HomeController::index());
+
+
+$router->get('/login', fn () => AuthController::showLogin());
+$router->post('/login', fn () => AuthController::handleLogin($_POST));
+$router->get('/register', fn () => AuthController::showRegister());
+$router->post('/register', fn () => AuthController::handleRegister($_POST));
+$router->post('/logout', fn () => AuthController::logout());
+
+
+$router->get('/driver/dashboard', fn () => DriverController::dashboard());
+$router->get('/driver/search', fn () => DriverController::search());
+$router->get('/driver/book', fn () => DriverController::book());
+$router->post('/driver/book', fn () => DriverController::book());
+$router->get('/driver/bookings', fn () => DriverController::bookings());
+$router->get('/driver/bookingdetail', fn () => DriverController::bookingDetail());
+$router->post('/driver/bookingdetail', fn () => DriverController::bookingDetail());
+$router->post('/driver/check-extend-conflict', fn () => DriverController::checkExtendConflict());
+$router->post('/driver/subscriptions/cancel', fn () => DriverController::cancelSubscription());
+$router->get('/driver/vehicles', fn () => DriverController::vehicles());
+$router->post('/driver/vehicles', fn () => DriverController::vehicles());
+$router->get('/driver/favorites', fn () => DriverController::favorites());
+$router->post('/driver/favorites', fn () => DriverController::favorites());
+$router->get('/driver/notifications', fn () => DriverController::notifications());
+$router->post('/driver/notifications', fn () => DriverController::notifications());
+$router->get('/driver/fines', fn () => DriverController::fines());
+$router->post('/driver/fines', fn () => DriverController::fines());
+
+
+$router->get('/owner/dashboard', fn () => OwnerController::dashboard());
+$router->get('/owner/reports', fn () => OwnerController::reports());
+$router->get('/owner/report-pdf', fn () => OwnerController::reportPdf());
+$router->get('/owner/spots', fn () => OwnerController::spots());
+$router->post('/owner/spots', fn () => OwnerController::spots());
+$router->get('/owner/earnings', fn () => OwnerController::earnings());
+$router->post('/owner/earnings', fn () => OwnerController::earnings());
+$router->get('/owner/verify', fn () => OwnerController::verify());
+$router->post('/owner/verify', fn () => OwnerController::verify());
+$router->get('/owner/notifications', fn () => OwnerController::notifications());
+$router->post('/owner/notifications', fn () => OwnerController::notifications());
+
+
+$router->get('/officer/dashboard', fn () => OfficerController::dashboard());
+$router->get('/officer/violation', fn () => OfficerController::violation());
+$router->post('/officer/violation', fn () => OfficerController::violation());
+
+
+$router->get('/admin/dashboard', fn () => AdminController::dashboard());
+$router->get('/admin/spots', fn () => AdminController::spots());
+$router->get('/admin/fines', fn () => AdminController::fines());
+$router->post('/admin/fines', fn () => AdminController::fines());
+$router->get('/admin/appeals', fn () => AdminController::appeals());
+$router->post('/admin/appeals', fn () => AdminController::appeals());
+$router->get('/admin/notifications', fn () => AdminController::notifications());
+$router->post('/admin/notifications', fn () => AdminController::notifications());
+$router->get('/admin/zones', fn () => AdminController::zones());
+$router->post('/admin/zones', fn () => AdminController::zones());
+$router->get('/admin/owners', fn () => AdminController::owners());
+$router->post('/admin/owners', fn () => AdminController::owners());
+$router->get('/admin/spot-approvals', fn () => AdminController::spotApprovals());
+$router->post('/admin/spot-approvals', fn () => AdminController::spotApprovals());
+$router->get('/admin/booking-disputes', fn () => AdminController::bookingDisputes());
+$router->post('/admin/booking-disputes', fn () => AdminController::bookingDisputes());
+$router->get('/admin/heatmap', fn () => AdminController::heatmap());
+$router->get('/admin/view-doc', fn () => AdminController::viewDoc());
+
+$router->dispatch();
+
