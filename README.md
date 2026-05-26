@@ -113,92 +113,124 @@ The application follows a **Model-View-Controller (MVC)** pattern with a thin cu
 
 ```
 Parking-Slot/
-├── Diagrams/                         # UML & system design artefacts
+├── Diagrams/                              # UML & system design artefacts
 │   ├── Activity Diagrams.drawio
 │   ├── Class_Object_Diagrams.drawio
 │   ├── ERD Diagram.drawio
 │   ├── Package Diagram.drawio
-│   ├── SD.drawio                     # Sequence diagrams
+│   ├── SD.drawio                          # Sequence diagrams
 │   ├── System Arch.drawio
 │   ├── Use Case.drawio
-│   └── SRS.docx                      # Software Requirements Specification
+│   └── SRS.docx                           # Software Requirements Specification
 │
-└── Smart-Urban-Parking-System/       # Application root (web server document root)
-    ├── .env.example                  # Environment variable template
-    ├── index.php                     # Front controller & route registry
-    ├── bootstrap.php                 # App init, env loading, autoloader, constants
-    ├── cron_no_show.php              # CLI script — marks no-show reservations
-    ├── parking_db.sql                # Full database schema + seed data
-    ├── parking_system_report.pdf     # Sample owner report (bundled fallback)
-    │
-    ├── Core/
-    │   ├── AppClock.php              # Mockable clock (aids testing)
-    │   ├── Auth.php                  # Session-based auth helpers
-    │   ├── Database.php              # PDO singleton factory
-    │   ├── Router.php                # Lightweight HTTP router
-    │   ├── Session.php               # Session wrapper
-    │   ├── SimplePdf.php             # Minimal PDF generation helper
-    │   └── View.php                  # Template renderer
-    │
-    ├── Controllers/
-    │   ├── BaseController.php
-    │   ├── AdminController.php
-    │   ├── AuthController.php
-    │   ├── DriverController.php
-    │   ├── HomeController.php
-    │   ├── OfficerController.php
-    │   └── OwnerController.php
-    │
-    ├── Models/
-    │   ├── BookingManager.php        # Core reservation logic
-    │   ├── ParkingBookingValidator.php
-    │   ├── ParkingAvailabilityTracker.php
-    │   ├── PricingEngine.php         # Duration × rate calculation
-    │   ├── PricingModel.php          # Peak-hour multiplier logic
-    │   ├── TaxEngine.php             # Per-zone VAT computation
-    │   ├── PaymentModel.php
-    │   ├── PaymentMethodStrategy.php # Strategy pattern for payment methods
-    │   ├── DriverWalletModel.php
-    │   ├── PromotionalCodeValidator.php
-    │   ├── PromoCode.php
-    │   ├── WaitlistModel.php
-    │   ├── ReviewModel.php
-    │   ├── PenaltyModel.php
-    │   ├── BookingDisputeModel.php
-    │   ├── SpotApprovalModel.php
-    │   ├── NotificationService.php
-    │   ├── ReservationSubject.php    # Observer pattern — subject
-    │   ├── ReservationObserver.php   # Observer pattern — observer
-    │   ├── ReservationEvent.php
-    │   ├── ReservationTimeService.php
-    │   ├── SubscriptionPeriodService.php
-    │   ├── OwnerReportModel.php
-    │   ├── ParkingSystemConfig.php
-    │   ├── User.php
-    │   └── ClassDiagramEntities.php
-    │
-    ├── Views/
-    │   ├── layout/
-    │   │   ├── header.php
-    │   │   └── footer.php
-    │   ├── auth/
-    │   │   ├── login.php
-    │   │   └── register.php
-    │   ├── driver/         (dashboard, search, book, bookings, bookingdetail,
-    │   │                    vehicles, favorites, fines, notifications, zones)
-    │   ├── owner/          (dashboard, spots, earnings, reports, verify, notifications)
-    │   ├── officer/        (dashboard, violation)
-    │   ├── admin/          (dashboard, spots, zones, owners, spot_approvals,
-    │   │                    fines, appeals, booking_disputes, heatmap, notifications)
-    │   └── errors/
-    │       └── 404.php
-    │
-    ├── assets/
-    │   └── css/style.css
-    │
-    └── uploads/                      # User-uploaded documents (gitignored)
-        ├── docs/                     # Owner KYC documents
-        └── spot_docs/                # Parking spot proof documents
+├── .env.example                           # Environment variable template
+├── index.php                              # Front controller & route registry
+├── bootstrap.php                          # App initialization & autoloader
+├── cron_no_show.php                       # CLI script for no-show reservations
+├── parking_db.sql                         # Database schema + seed data
+├── parking_system_report.pdf              # Sample generated report
+│
+├── Core/                                  # Core framework utilities
+│   ├── AppClock.php                       # Mockable clock for testing
+│   ├── Auth.php                           # Authentication helpers
+│   ├── Database.php                       # PDO database singleton
+│   ├── Router.php                         # Lightweight routing system
+│   ├── Session.php                        # Session management wrapper
+│   ├── SimplePdf.php                      # PDF generation helper
+│   └── View.php                           # Template rendering engine
+│
+├── Controllers/                           # Application controllers
+│   ├── BaseController.php
+│   ├── AdminController.php
+│   ├── AuthController.php
+│   ├── DriverController.php
+│   ├── HomeController.php
+│   ├── OfficerController.php
+│   └── OwnerController.php
+│
+├── Models/                                # Business logic & data layer
+│   ├── BookingManager.php
+│   ├── ParkingBookingValidator.php
+│   ├── ParkingAvailabilityTracker.php
+│   ├── PricingEngine.php
+│   ├── PricingModel.php
+│   ├── TaxEngine.php
+│   ├── PaymentModel.php
+│   ├── PaymentMethodStrategy.php
+│   ├── DriverWalletModel.php
+│   ├── PromotionalCodeValidator.php
+│   ├── PromoCode.php
+│   ├── WaitlistModel.php
+│   ├── ReviewModel.php
+│   ├── PenaltyModel.php
+│   ├── BookingDisputeModel.php
+│   ├── SpotApprovalModel.php
+│   ├── NotificationService.php
+│   ├── ReservationSubject.php
+│   ├── ReservationObserver.php
+│   ├── ReservationEvent.php
+│   ├── ReservationTimeService.php
+│   ├── SubscriptionPeriodService.php
+│   ├── OwnerReportModel.php
+│   ├── ParkingSystemConfig.php
+│   ├── User.php
+│   └── ClassDiagramEntities.php
+│
+├── Views/                                 # Frontend templates
+│   ├── layout/
+│   │   ├── header.php
+│   │   └── footer.php
+│   │
+│   ├── auth/
+│   │   ├── login.php
+│   │   └── register.php
+│   │
+│   ├── driver/
+│   │   ├── dashboard.php
+│   │   ├── search.php
+│   │   ├── book.php
+│   │   ├── bookings.php
+│   │   ├── bookingdetail.php
+│   │   ├── vehicles.php
+│   │   ├── favorites.php
+│   │   ├── fines.php
+│   │   ├── notifications.php
+│   │   └── zones.php
+│   │
+│   ├── owner/
+│   │   ├── dashboard.php
+│   │   ├── spots.php
+│   │   ├── earnings.php
+│   │   ├── reports.php
+│   │   ├── verify.php
+│   │   └── notifications.php
+│   │
+│   ├── officer/
+│   │   ├── dashboard.php
+│   │   └── violation.php
+│   │
+│   ├── admin/
+│   │   ├── dashboard.php
+│   │   ├── spots.php
+│   │   ├── zones.php
+│   │   ├── owners.php
+│   │   ├── spot_approvals.php
+│   │   ├── fines.php
+│   │   ├── appeals.php
+│   │   ├── booking_disputes.php
+│   │   ├── heatmap.php
+│   │   └── notifications.php
+│   │
+│   └── errors/
+│       └── 404.php
+│
+├── assets/
+│   └── css/
+│       └── style.css
+│
+└── uploads/                               # User-uploaded content (gitignored)
+    ├── docs/                              # Owner verification documents
+    └── spot_docs/                         # Parking spot proof documents             # Parking spot proof documents
 ```
 
 ---
