@@ -1,0 +1,22 @@
+# Environment & secrets
+.env
+*.env.local
+
+# Uploaded user files (keep directory, ignore contents)
+Smart-Urban-Parking-System/uploads/docs/*
+Smart-Urban-Parking-System/uploads/spot_docs/*
+!Smart-Urban-Parking-System/uploads/docs/.gitkeep
+!Smart-Urban-Parking-System/uploads/spot_docs/.gitkeep
+
+# IDE & OS
+.idea/
+.vscode/
+*.DS_Store
+Thumbs.db
+
+# Composer
+vendor/
+composer.lock
+
+# Logs
+*.log
